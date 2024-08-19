@@ -1,0 +1,54 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Habata Habit Tracking App and Todo List Service</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles/style.css">
+</head>
+
+<body>
+    <div class="quote">
+        <img src="assets/René Descartes.jpg" alt="">
+<div class="quotation">
+        <h3>"Except our own thoughts, there is nothing absolutely in our power."
+</h3>
+<p>- René Descartes</p>
+</div>
+
+</div>
+</body>
+<script>
+    var authors=[]
+    var quotes=[]
+    document.addEventListener(onload,loadquote())
+    async function loadquote(){
+    var requrl="https://philosophy-quotes-api.glitch.me/quotes"
+    const response=await fetch(requrl)
+    var quotes=await response.json()
+    var random=Math.floor(Math.random()*128)  
+    console.log(quotes[random])
+    for(let i=0;i<128;i++){
+        if(!authors.includes(quotes[i]["source"])){
+            authors.push(quotes[i]["source"])
+
+        }
+        
+   
+    }
+    var quote=document.querySelectorAll(".quote");
+    var quotation=quote[0].querySelector("h3");
+    var picture=quote[0].querySelector("img");
+    var source=quote[0].querySelector("p");
+    var back=document.querySelector("body")
+    source.innerText=quotes[random]["source"]
+    quotation.innerText=quotes[random]["quote"]
+    picture.src="assets/"+quotes[random]["source"]+".jpg"
+    console.log(back.style)
+back.style.backgroundImage="url('assets/scenes/"+quotes[random]["philosophy"]+".jpg')"
+}
+
+</script>
+</html>
